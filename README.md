@@ -1,54 +1,54 @@
 # TurboBot
 
-Bot Discord w Pythonie ([discord.py](https://discordpy.readthedocs.io/)).
+A Discord bot written in Python with [discord.py](https://discordpy.readthedocs.io/).
 
-## 1. Utwórz bota na Discordzie
+## 1. Create the bot on Discord
 
-1. Wejdź na https://discord.com/developers/applications → **New Application**.
-2. Zakładka **Bot**:
-   - **Reset Token** → skopiuj token (nikomu go nie pokazuj!).
-   - W sekcji **Privileged Gateway Intents** włącz **SERVER MEMBERS INTENT** i **MESSAGE CONTENT INTENT**.
-3. Zakładka **OAuth2 → URL Generator**:
-   - Scopes: `bot` i `applications.commands`
-   - Bot Permissions: np. `Send Messages`, `Embed Links`, `Manage Messages`, `Read Message History`
-   - Otwórz wygenerowany link i dodaj bota na swój serwer.
+1. Go to https://discord.com/developers/applications → **New Application**.
+2. **Bot** tab:
+   - **Reset Token** → copy the token (never share it!).
+   - Under **Privileged Gateway Intents**, enable **SERVER MEMBERS INTENT** and **MESSAGE CONTENT INTENT**.
+3. **OAuth2 → URL Generator** tab:
+   - Scopes: `bot` and `applications.commands`
+   - Bot Permissions: e.g. `Send Messages`, `Embed Links`, `Manage Messages`, `Read Message History`
+   - Open the generated link and add the bot to your server.
 
-## 2. Uruchom (PowerShell)
+## 2. Run it (PowerShell)
 
 ```powershell
 python -m venv .venv
 .venv\Scripts\Activate.ps1
 pip install -r requirements.txt
-copy .env.example .env   # potem wklej token do .env
+copy .env.example .env   # then paste your token into .env
 python bot.py
 ```
 
-> Jeśli `Activate.ps1` jest zablokowany, uruchom raz:
+> If `Activate.ps1` is blocked, run this once:
 > `Set-ExecutionPolicy -Scope CurrentUser RemoteSigned`
 
-## Komendy
+## Commands
 
-Każda działa jako `/komenda` i jako `!komenda`.
+Each one works as `/command` and as `!command`.
 
-| Komenda | Opis |
+| Command | Description |
 |---|---|
-| `ping` | opóźnienie bota |
-| `hello` | powitanie |
-| `roll [ścianki]` | rzut kostką |
-| `userinfo [użytkownik]` | info o użytkowniku |
-| `clear <ile>` | usuwa wiadomości (wymaga uprawnienia *Zarządzanie wiadomościami*) |
-| `help` | lista komend (tylko `!help`) |
+| `ping` | bot latency |
+| `hello` | greeting |
+| `roll [sides]` | roll a die |
+| `userinfo [member]` | info about a member |
+| `clear <amount>` | delete messages (requires the *Manage Messages* permission) |
+| `help` | list of commands (`!help` only) |
 
-## Struktura
+## Structure
 
 ```
-bot.py            # start bota, ładowanie cogów, synchronizacja komend slash
+bot.py            # starts the bot, loads cogs, syncs slash commands
 cogs/
-  general.py      # podstawowe komendy
-  moderation.py   # komendy moderacyjne
-  events.py       # powitania + obsługa błędów
+  general.py      # basic commands
+  moderation.py   # moderation commands
+  events.py       # welcome message + error handling
 ```
 
-Żeby dodać nowe komendy, utwórz nowy plik w `cogs/` (wzoruj się na `general.py`) — zostanie załadowany automatycznie.
+To add new commands, create a new file in `cogs/` (use `general.py` as a template) — it will be loaded automatically.
 
-**Wskazówka:** wpisz ID swojego serwera w `GUILD_ID` w `.env` — nowe komendy slash będą widoczne od razu po restarcie bota.
+**Tip:** put your server's ID in `GUILD_ID` in `.env` — new slash commands will show up right after restarting the bot.
